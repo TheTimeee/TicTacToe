@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="de">
+
+<head>
+    <title>Tic Tac Toe</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="src/styles/index.css">
+
+    <script src="src/scripts/gamethread.js"></script>
+    <script src="src/scripts/ai.js"></script>
+</head>
+
+<body onload="main()">
+    <h1>Tic Tac Toe</h1>
+
+    <div class="header">
+        <div class="field" onclick="gAI.onEnabled(this)">
+            <div id="iField">
+                <input type="checkbox" id="iCheckBox" /> AI
+            </div>
+        </div>
+        <div class="field" id="fDifficulty">
+            <select id="iDifficulty" name="difficulty" onchange="gAI.onDifficulty(this)">
+                <option value="0">Leicht</option>
+                <option value="1" selected>Mittel</option>
+                <option value="2">Schwer</option>
+            </select>
+        </div>
+        <div class="field" id="reset">
+            <button onclick="gThread.Reset()">Reset</button>
+        </div>
+    </div>
+
+    <div id="message">Spieler 0 ist dran...</div>
+
+    <div class="main">
+
+        <div class="container text player_1">
+            <div class="player">Spieler 1:</div>
+            <div id="victoryCount_1">0</div>
+        </div>
+
+        <div class="container iField">
+            <div class="game">
+                <div class="field" id="0" onclick="gThread.onFieldSelect(this)"></div>
+                <div class="field" id="1" onclick="gThread.onFieldSelect(this)"></div>
+                <div class="field" id="2" onclick="gThread.onFieldSelect(this)"></div>
+
+                <div class="field" id="3" onclick="gThread.onFieldSelect(this)"></div>
+                <div class="field" id="4" onclick="gThread.onFieldSelect(this)"></div>
+                <div class="field" id="5" onclick="gThread.onFieldSelect(this)"></div>
+
+                <div class="field" id="6" onclick="gThread.onFieldSelect(this)"></div>
+                <div class="field" id="7" onclick="gThread.onFieldSelect(this)"></div>
+                <div class="field" id="8" onclick="gThread.onFieldSelect(this)"></div>
+            </div>
+        </div>
+
+        <div class="container text player_2">
+            <div class="player">Spieler 2:</div>
+            <div id="victoryCount_2">0</div>
+        </div>
+
+    </div>
+
+    <!--JS-->
+    <script lang="JavaScript">
+        var gThread = new GameThread();
+        var gAI = new AI();
+
+        function main() {
+            if (!gAI.getEnabled()) return;
+
+            gAI.onTick();
+
+            setTimeout(main, 0);
+        }
+    </script>
+</body>
+
+</html>
